@@ -1,0 +1,36 @@
+from pyshortcuts import make_shortcut
+
+
+def fill_and_create_bat_file_for_shortcut(files_list):
+    txt = "@echo off"
+    for file, file_info in files.items():
+        txt += f'\ncd \"{file_info["path"]}\"' \
+                   f'\nstart {file_info["exe"]}'
+
+    bat_file = open(f"{bat_directory}\\{file_name}.bat", "w")
+    bat_file.write(txt)
+    bat_file.close()
+
+
+bat_directory = "bats"
+
+files = {}
+
+file1_path = r"C:\Program Files (x86)\Battle.net"
+file2_path = r"C:\Users\samyb\AppData\Local\HearthstoneDeckTracker"
+file1_exe = "Battle.net Launcher.exe"
+file2_exe = "HearthstoneDeckTracker.exe"
+icon_src = r"C:\Users\samyb\Documents\.Projects\Personnels\MultipleProgramsLauncher\shortcuts.ico"
+
+file_name = file1_exe.rpartition(".")[0].replace(" ", "")
+
+files["file1"] = {"path": file1_path, "exe": file1_exe}
+files["file2"] = {"path": file2_path, "exe": file2_exe}
+
+# Create and fill .BAT content
+fill_and_create_bat_file_for_shortcut(files)
+
+target = rf'C:\Users\samyb\Documents\.Projects\Personnels\MultipleProgramsLauncher\{bat_directory}\{file_name}.bat'
+
+# Create shortcut
+make_shortcut(target, name=file_name, icon=icon_src)
