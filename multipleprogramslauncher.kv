@@ -1,0 +1,98 @@
+MainWidget:
+
+<InfoAndAddButton@FloatLayout>:
+    size_hint: 1,0.2
+    Button:
+        text: "Click to select file ..."
+        size_hint: 1,1
+        pos_hint: {'x':0, 'top': 1}
+        background_color: (0, 1, 1, 1)
+        canvas.before:
+            Color:
+                rgba: self.background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Button:
+        text: "+"
+        color: 0,0,0
+        bold: True
+        font_size: 50
+        size_hint: None,.5
+        width: 250
+        pos_hint: {'center_x':0.5, 'top': 0.25}
+        background_color: (0,0,0,0)
+        background_normal: ""
+        canvas.before:
+            Color:
+                rgba: 1,1,1,1
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [50]
+
+<MainWidget>:
+    orientation: "vertical"
+    StackLayout:
+        size_hint: 1, .8
+        padding: 10
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: (1,0,0,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Button:
+            text: "Click to select file ..."
+            size_hint: 1,0.2
+            background_color: (0, 0, 1, 1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            color: (1,1,0,1)
+            bold: True
+            italic: True
+            outline_color: (0,0,0)
+            outline_width: 2
+        Button:
+            text: "Click to select file ..."
+            size_hint: 1,0.2
+            background_color: (0, 1, 0, 1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        InfoAndAddButton:
+    BoxLayout:
+        size_hint: 1, .2
+        padding: 10
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: (1,0,1,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            size_hint: .3, 1
+            Image:
+                source: ""
+            Button:
+                text: "select icon..."
+                size_hint: 1, .5
+        BoxLayout:
+            size_hint: .7, 1
+            Button:
+                text: "Create Shortcut"
+                size_hint: .5, 1
+                background_color: (0, 0, 0, 1)
+                background_normal: ""
+
+
+
