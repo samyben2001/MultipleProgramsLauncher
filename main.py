@@ -1,9 +1,19 @@
+from kivy.app import App
+from kivy.uix.widget import Widget
 from pyshortcuts import make_shortcut
+
+
+class MainWidget(Widget):
+    pass
+
+
+class MultipleProgramsLauncherApp(App):
+    pass
 
 
 def fill_and_create_bat_file_for_shortcut(files_list, path_to_save, filename):
     txt = "@echo off"
-    for file, file_info in files.items():
+    for file, file_info in files_list.items():
         txt += f'\ncd \"{file_info["path"]}\"' \
                    f'\nstart {file_info["exe"]}'
 
@@ -12,6 +22,9 @@ def fill_and_create_bat_file_for_shortcut(files_list, path_to_save, filename):
     bat_file.close()
 
 
+MultipleProgramsLauncherApp().run()
+
+'''
 bat_directory = "bats"
 
 files = {}
@@ -34,3 +47,4 @@ target = rf'C:\Users\samyb\Documents\.Projects\Personnels\MultipleProgramsLaunch
 
 # Create shortcut
 make_shortcut(target, name=filename, icon=icon_src)
+'''
