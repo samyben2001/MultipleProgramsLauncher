@@ -1,0 +1,25 @@
+<ShortcutCreation@BoxLayout>:
+    size_hint: 1, .2
+    padding: 10
+    spacing: 10
+    canvas.before:
+        Color:
+            rgba: (1,0,1,1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        size_hint: .3, 1
+        Image:
+            source: ""
+        Button:
+            text: "select icon..."
+            size_hint: 1, .5
+    RelativeLayout:
+        size_hint: .7, 1
+        Button:
+            text: "Create Shortcut"
+            size_hint: .5, 1
+            pos_hint: {'x': .25}
+            background_color: (0, 0, 0, 1)
+            background_normal: ""
