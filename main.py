@@ -6,13 +6,16 @@ Config.set('graphics', 'minimum_height', '600')
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import ListProperty
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.widget import Widget
-from pyshortcuts import make_shortcut
+
+Builder.load_file("add_file.kv")
+Builder.load_file("shortcut_creation.kv")
 
 
 class MainWidget(BoxLayout):
-    pass
+    paths = ListProperty([])
 
 
 class MultipleProgramsLauncherApp(App):
@@ -20,7 +23,6 @@ class MultipleProgramsLauncherApp(App):
 
 
 MultipleProgramsLauncherApp().run()
-
 
 # def fill_and_create_bat_file_for_shortcut(files_list, path_to_save, filename):
 #     txt = "@echo off"

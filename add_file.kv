@@ -1,16 +1,4 @@
-<InfoAndAddButton>:
-    size_hint: 1,0.2
-    Button:
-        text: "Click to select file ..."
-        size_hint: 1,1
-        pos_hint: {'x':0, 'top': 1}
-        background_color: (0, 1, 1, 1)
-        canvas.before:
-            Color:
-                rgba: self.background_color
-            Rectangle:
-                pos: self.pos
-                size: self.size
+<AddMoreFileButton>:
     Button:
         text: "+"
         color: 0,0,0
@@ -31,23 +19,40 @@
         on_press:root.on_add_more_file_click()
         on_release: root.on_add_more_file_release()
 
-<InfoButton@Button>:
-    text: "Click to select file ..."
-    size_hint: 1,0.2
-    background_color: (0, 0, 1, 1)
-    canvas.before:
-        Color:
-            rgba: self.background_color
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    color: (1,1,0,1)
-    bold: True
-    italic: True
-    outline_color: (1,0,0)
-    outline_width: 2
+<InfoButton>:
+    size_hint: 1,0.17
+    Label:
+        text: root.path_str
+        size_hint: .8,1
+        text_size: self.size
+        halign: "left"
+        valign: "center"
+        padding_x: 10
+        canvas.before:
+            Color:
+                rgba: (0.2, 0.2, 0.2, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Button:
+        text: "Click to select file ..."
+        background_color: (0.7, 0.7, 0.7, 1)
+        size_hint: .2,1
+        canvas.before:
+            Color:
+                rgba: self.background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
-<AddFile@StackLayout>:
+        on_press:root.on_select_file_click(root.parent.parent.paths)
+        color: (1,1,1,1)
+        bold: True
+        italic: True
+        outline_color: (0,0,0)
+        outline_width: 2
+
+<AddFile>:
     size_hint: 1, .8
     padding: 10
     spacing: 10
@@ -57,7 +62,9 @@
         Rectangle:
             pos: self.pos
             size: self.size
-
     InfoButton:
     InfoButton:
-    InfoAndAddButton:
+    InfoButton:
+    InfoButton:
+    InfoButton:
+        AddMoreFileButton:
