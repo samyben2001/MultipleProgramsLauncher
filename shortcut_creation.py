@@ -1,7 +1,10 @@
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from plyer import filechooser
+from PIL import Image
 
 from shortcut_creation_manager import ShortcutCreationManager
 
@@ -14,12 +17,14 @@ class ShortcutCreation(BoxLayout):
         if len(paths_list) > 1:
             self.scm.create_shortcut(paths_list, self.img_src)
         else:
-            print("Please select at least two files")
+            popup = Popup(title='ERROR:  Not enough files',
+                          content=Label(text='Please select at least two files.',
+                                        halign="center"),
+                          size_hint=(None, None), size=(400, 150))
+            popup.open()
 
     def on_select_icon_click(self):
         path = filechooser.open_file(title="Pick a ICO file..",
                                      filters=[("Icon", "*.ico")])
         if path:
             self.img_src = path[0]
-
-

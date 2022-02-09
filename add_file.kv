@@ -1,70 +1,68 @@
-<AddMoreFileButton>:
-    Button:
-        text: "+"
-        color: 0,0,0
-        bold: True
-        font_size: 50
-        size_hint: None,.5
-        width: 250
-        pos_hint: {'center_x':0.5, 'top': 0.25}
-        background_color: (0,0,0,0)
-        background_normal: ""
-        canvas.before:
-            Color:
-                rgba: root.background_color
-            RoundedRectangle:
-                size: self.size
-                pos: self.pos
-                radius: [50]
-        on_press:root.on_add_more_file_click()
-        on_release: root.on_add_more_file_release()
+<RemoveFileButton>:
+    text: "X"
+    bold: True
+    background_color: (0.7, 0, 0, 1)
+    size_hint: .05,1
+    on_press: root.on_remove_file_click(root.parent.parent.parent.parent.paths)
 
 <InfoButton>:
     size_hint: 1,0.17
     Label:
+        text: "Path:"
+        bold: True
+        size_hint: .1,1
+        text_size: self.size
+        halign: "center"
+        valign: "center"
+        canvas.before:
+            Color:
+                rgba: (0.6, 0.6, 0.6, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Label:
         text: root.path_str
-        size_hint: .8,1
+        size_hint: .75,1
         text_size: self.size
         halign: "left"
         valign: "center"
-        padding_x: 10
         canvas.before:
             Color:
-                rgba: (0.2, 0.2, 0.2, 1)
+                rgba: (0.6, 0.6, 0.6, 1)
             Rectangle:
                 pos: self.pos
                 size: self.size
     Button:
-        text: "Click to select file ..."
-        background_color: (0.7, 0.7, 0.7, 1)
-        size_hint: .2,1
-        canvas.before:
-            Color:
-                rgba: self.background_color
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        text: "Select file ..."
+        background_color: (0, 0, 0.7, 1)
+        size_hint: .15,1
 
-        on_press:root.on_select_file_click(root.parent.parent.paths)
+        on_press:root.on_select_file_click(root.parent.parent.parent.paths)
         color: (1,1,1,1)
         bold: True
-        italic: True
-        outline_color: (0,0,0)
-        outline_width: 2
+
+<AddMoreFileButton>:
+    text: "Add more file"
+    color: 0,0,0
+    bold: True
+    font_size: dp(15)
+    size_hint: .5, 1
+    pos_hint: {'center_x': .5,'center_y': .5}
+    on_press:root.on_add_more_file_click()
 
 <AddFile>:
-    size_hint: 1, .8
-    padding: 10
-    spacing: 10
-    canvas.before:
-        Color:
-            rgba: (1,0,0,1)
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    InfoButton:
-    InfoButton:
-    InfoButton:
-    InfoButton:
-    InfoButton:
+    stack_files: stack_files
+    orientation: 'vertical'
+    size_hint: 1, .9
+    StackLayout:
+        id: stack_files
+        size_hint: 1, .8
+        padding: 10
+        spacing: 10
+        InfoButton:
+        InfoButton:
+    BoxLayout:
+        size_hint: .2, .1
+        padding: 3
+        pos_hint:{"center_x": .5}
         AddMoreFileButton:

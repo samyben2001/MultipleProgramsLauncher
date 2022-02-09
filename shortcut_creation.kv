@@ -2,36 +2,38 @@
     size_hint: 1, .2
     canvas.before:
         Color:
-            rgba: (1,1,0,1)
+            rgba: (0.7, 0.7, 0.7, 1)
         Rectangle:
             size: self.size
     BoxLayout:
         padding: 10
-        size_hint: .4, 1
+        size_hint: .3, 1
         Image:
             source: root.img_src
             canvas.before:
                 Color:
                     rgba: (1,1,1,1)
                 Rectangle:
-                    pos: self.pos
-                    size: self.size
-            size_hint: .4, 1
+                    pos: (self.x, self.y-5)
+                    size: (self.width,self.height + 10)
+            size_hint: .1, 1
         Button:
-            text: "select icon..."
-            size_hint: .6, .5
+            text: "Select icon..."
+            size_hint: .1, .5
+            pos_hint: {'center_y': .5}
             on_press: root.on_select_icon_click()
     RelativeLayout:
-        size_hint: .6, 1
+        size_hint: .7, 1
         canvas.before:
             Color:
-                rgba: (0,0,1,1)
+                rgba: (0.7, 0.7, 0.7, 1)
             Rectangle:
                 size: self.size
         Button:
             text: "Create Shortcut"
-            pos_hint: {'center_x': .5, 'center_y': .5}
+            font_size: dp(25)
+            bold: True
+            pos_hint: {'center_x': .7, 'center_y': .5}
             size_hint: .5, .8
-            background_color: (0, 0, 0, 1)
-            background_normal: ""
+            background_color: (0.7, 0.7, 0.7, 1)
             on_press: root.on_create_shortcut_click(root.parent.paths)
