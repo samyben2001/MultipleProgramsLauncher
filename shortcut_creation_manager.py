@@ -1,5 +1,6 @@
 import os
 
+from kivy.graphics import Color, RoundedRectangle, Callback
 from kivy.metrics import dp
 from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
@@ -7,6 +8,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
+from kivy.uix.widget import Widget
 from pyshortcuts import make_shortcut
 
 
@@ -17,6 +19,8 @@ class ShortcutCreationManager:
         self.bat_name = 0  # numbers of files already in directory
         self.shortcut_name = ""
         self.icon_src = ""
+        self.create_button = Button()
+        self.rect_btn = RoundedRectangle()
         for base, dirs, files in os.walk(self.base_path + "/bats"):
             for Files in files:
                 self.bat_name += 1
@@ -30,6 +34,7 @@ class ShortcutCreationManager:
     def call_popup_shortcut_name(self, default_name):
         content = BoxLayout(orientation='vertical',
                             spacing=dp(15),
+                            padding=10,
                             size_hint=(1, 1))
 
         b = BoxLayout(pos_hint={'center_x': .5, 'center_y': .5})
@@ -43,17 +48,26 @@ class ShortcutCreationManager:
                                font_size=dp(15),
                                size_hint=(.7, None),
                                height=40,
-                               pos_hint={'center_x': .5, 'center_y': .5})
-        text_input.padding = [0, text_input.height / 2.0 - (text_input.line_height / 2.0), 0, 0]
+                               pos_hint={'center_x': .5, 'center_y': .5},
+                               multiline=False)
+        text_input.padding = [10, text_input.height / 2.0 - (text_input.line_height / 2.0), 0, 0]
         text_input.bind(text=self.set_shortcut_name)
         b.add_widget(text_input)
         content.add_widget(b)
 
-        dismiss_button = Button(text="Create Shortcut",
-                                size_hint=(None, None),
-                                size=(200, 75),
-                                pos_hint={'center_x': .5})
-        content.add_widget(dismiss_button)
+        self.create_button = Button(text="Create Shortcut",
+                                    bold=True,
+                                    size_hint=(None, None),
+                                    size=(150, 50),
+                                    pos_hint={'center_x': .5},
+                                    color=(0, 0, 0, 1),
+                                    background_color=(0, 0, 0, 0),
+                                    background_normal="")
+        with self.create_button.canvas.before:
+            Color(1, 1, 1)
+            self.rect_btn = RoundedRectangle(pos=self.create_button.pos, size=self.create_button.size, radius=[25])
+            Callback(self.btn_callback)
+        content.add_widget(self.create_button)
 
         popup = Popup(title='Shortcut Name',
                       auto_dismiss=False,
@@ -61,9 +75,13 @@ class ShortcutCreationManager:
                       size_hint=(None, None),
                       size=(400, 230))
 
-        dismiss_button.bind(on_press=popup.dismiss)
+        self.create_button.bind(on_press=popup.dismiss)
         popup.bind(on_dismiss=self.popup_dismiss_callback)
         popup.open()
+
+    def btn_callback(self, instr):
+        self.rect_btn.pos = self.create_button.pos
+        self.rect_btn.size = self.create_button.size
 
     def __create_shortcut(self):
         if os.path.exists(self.desktop_location + f"\\{self.shortcut_name}.lnk"):
@@ -76,7 +94,7 @@ class ShortcutCreationManager:
             popup.open()
         else:
             make_shortcut(f"{self.base_path}\\bats\\{self.bat_name}.bat", name=self.shortcut_name,
-                          icon=self.icon_src)
+                          icon=self.icon_src, startmenu=False)
             self.bat_name += 1
             popup = Popup(title='Shortcut Created',
                           content=Label(text='Shortcut successfully created on Desktop!',

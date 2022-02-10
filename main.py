@@ -3,7 +3,8 @@ Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '600')
 Config.set('graphics', 'minimum_width', '1000')
 Config.set('graphics', 'minimum_height', '600')
-from kivy.app import App
+Config.set('graphics', 'resizable', '0')
+from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ListProperty
@@ -18,9 +19,8 @@ class MainWidget(BoxLayout):
     paths = ListProperty([])
 
 
-class MultipleProgramsLauncherApp(App):
+class MultipleProgramsLauncherApp(MDApp):
     pass
 
 
-if __name__ == "__main__":
-    MultipleProgramsLauncherApp().run()
+MultipleProgramsLauncherApp().run()

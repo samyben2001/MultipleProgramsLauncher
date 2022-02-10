@@ -14,14 +14,22 @@ from plyer import filechooser
 from shortcut_creation_manager import ShortcutCreationManager
 
 
-class RemoveFileButton(Button):
+class RoundedButton(Button):
+    pass
+
+
+class RemoveFileButton(RoundedButton):
     info_btn: ObjectProperty()
 
     def on_remove_file_click(self, path_list):
         print(path_list)
-        if self.parent.children[2].text in path_list:
-            path_list.remove(self.parent.children[2].text)
-        self.parent.parent.remove_widget(self.parent)
+        print(self.parent.parent.children[1].text)
+        info_layout = self.parent.parent
+        path_txt = info_layout.children[1].text
+
+        if path_txt in path_list:
+            path_list.remove(path_txt)
+        info_layout.parent.remove_widget(info_layout)
         print(path_list)
 
 
@@ -33,9 +41,8 @@ class AddMoreFileButton(Button):
     def on_add_more_file_click(self):
         if len(self.parent.parent.stack_files.children) <= 4:
             b = InfoButton()
-            b.children[0].size_hint = [.1, 1]
             rmb = RemoveFileButton()
-            b.add_widget(rmb)
+            b.children[0].add_widget(rmb)
             self.parent.parent.stack_files.add_widget(b)
         else:
             popup = Popup(title='ERROR: Max files reached',
