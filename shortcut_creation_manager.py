@@ -159,6 +159,9 @@ class ShortcutCreationManager:
         for file, file_info in files_list.items():
             txt += f'\nstart \"\" \"{file_info["path"]}\\{file_info["filename"]}\"'
 
+        if not os.path.exists(f"{self.base_path}\\bats"):
+            os.mkdir(f"{self.base_path}\\bats")
+
         bat_file = open(f"{self.base_path}\\bats\\{self.bat_name}.bat", "w")
         bat_file.write(txt)
         bat_file.close()
