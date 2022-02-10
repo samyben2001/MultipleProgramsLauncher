@@ -22,15 +22,12 @@ class RemoveFileButton(RoundedButton):
     info_btn: ObjectProperty()
 
     def on_remove_file_click(self, path_list):
-        print(path_list)
-        print(self.parent.parent.children[1].text)
         info_layout = self.parent.parent
         path_txt = info_layout.children[1].text
 
         if path_txt in path_list:
             path_list.remove(path_txt)
         info_layout.parent.remove_widget(info_layout)
-        print(path_list)
 
 
 class AddFile(BoxLayout):
@@ -48,7 +45,8 @@ class AddMoreFileButton(Button):
             popup = Popup(title='ERROR: Max files reached',
                           content=Label(text='You cannot add more than 5 files to execute \n simultaneously!',
                                         halign="center"),
-                          size_hint=(None, None), size=(400, 150))
+                          size_hint=(None, None), size=(400, 150),
+                          separator_color=(1, 1, 1, 1))
             popup.open()
 
 
@@ -66,7 +64,8 @@ class InfoButton(BoxLayout):
             popup = Popup(title='ERROR: File already selected',
                           content=Label(text='You have already selected this file!',
                                         halign="center"),
-                          size_hint=(None, None), size=(400, 150))
+                          size_hint=(None, None), size=(400, 150),
+                          separator_color=(1, 1, 1, 1))
             popup.open()
             return
 
