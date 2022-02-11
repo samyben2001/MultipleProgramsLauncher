@@ -30,7 +30,7 @@ class ShortcutCreationManager:
                 self.bat_name += 1
 
     def set_shortcut_name(self, instance, text):
-        self.shortcut_name = text
+        self.shortcut_name = instance.text
 
     def on_create_shortcut_callback(self, instance):
         self.__create_shortcut()
@@ -52,12 +52,12 @@ class ShortcutCreationManager:
                            height=40,
                            pos_hint={'center_x': .5, 'center_y': .5}))
 
-        text_input = TextInput(text=default_name,
-                               font_size=dp(15),
-                               size_hint=(.7, None),
-                               height=40,
-                               pos_hint={'center_x': .5, 'center_y': .5},
-                               multiline=False)
+        text_input = MyTextInput(text=default_name,
+                                 font_size=dp(15),
+                                 size_hint=(.7, None),
+                                 height=40,
+                                 pos_hint={'center_x': .5, 'center_y': .5},
+                                 multiline=False)
         text_input.padding = [10, text_input.height / 2.0 - (text_input.line_height / 2.0), 0, 0]
         text_input.bind(text=self.set_shortcut_name)
         b.add_widget(text_input)
@@ -75,7 +75,8 @@ class ShortcutCreationManager:
         self.cancel_button.bind(on_press=self.on_cancel_callback)
         with self.cancel_button.canvas.before:
             Color(1, 1, 1)
-            self.rect_cancel_btn = RoundedRectangle(pos=self.cancel_button.pos, size=self.cancel_button.size, radius=[25])
+            self.rect_cancel_btn = RoundedRectangle(pos=self.cancel_button.pos, size=self.cancel_button.size,
+                                                    radius=[25])
             Callback(self.btn_cancel_callback)
         b.add_widget(self.cancel_button)
 
@@ -96,11 +97,11 @@ class ShortcutCreationManager:
         content.add_widget(b)
 
         self.popup_name_shortcut = Popup(title='Shortcut Name',
-                      auto_dismiss=False,
-                      content=content,
-                      size_hint=(None, None),
-                      size=(400, 230),
-                      separator_color=(1, 1, 1, 1))
+                                         auto_dismiss=False,
+                                         content=content,
+                                         size_hint=(None, None),
+                                         size=(400, 230),
+                                         separator_color=(1, 1, 1, 1))
         self.popup_name_shortcut.open()
 
     def btn_cancel_callback(self, instr):
@@ -165,3 +166,12 @@ class ShortcutCreationManager:
         bat_file = open(f"{self.base_path}\\bats\\{self.bat_name}.bat", "w")
         bat_file.write(txt)
         bat_file.close()
+
+
+class MyTextInput(TextInput):
+    max_characters = 29
+
+    def insert_text(self, substring, from_undo=False):
+        if len(self.text) > self.max_characters > 0:
+            substring = ""
+        TextInput.insert_text(self, substring, from_undo)
