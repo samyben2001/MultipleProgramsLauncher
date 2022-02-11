@@ -8,8 +8,6 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ListProperty
-from kivy.uix.relativelayout import RelativeLayout
-from kivy.uix.widget import Widget
 
 
 Builder.load_file("add_file.kv")

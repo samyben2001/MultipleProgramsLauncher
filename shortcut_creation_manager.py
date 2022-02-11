@@ -2,20 +2,17 @@ import os
 
 from kivy.graphics import Color, RoundedRectangle, Callback
 from kivy.metrics import dp
-from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
-from kivy.uix.widget import Widget
-from kivymd.uix.textfield import MDTextFieldRound, MDTextFieldRect
 from pyshortcuts import make_shortcut
 
 
 class ShortcutCreationManager:
     def __init__(self):
-        self.desktop_location = desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+        self.desktop_location = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
         self.base_path = os.getcwd()
         self.bat_name = 0  # numbers of files already in directory
         self.shortcut_name = ""

@@ -1,10 +1,8 @@
-from kivy.lang import Builder
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from plyer import filechooser
-from PIL import Image
 
 from shortcut_creation_manager import ShortcutCreationManager
 
