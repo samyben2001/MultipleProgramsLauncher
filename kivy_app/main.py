@@ -1,4 +1,5 @@
 from kivy import Config
+
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '600')
 Config.set('graphics', 'minimum_width', '1000')
@@ -8,7 +9,6 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ListProperty
-
 
 Builder.load_file("add_file.kv")
 Builder.load_file("shortcut_creation.kv")
@@ -22,4 +22,5 @@ class MultipleProgramsLauncherApp(MDApp):
     pass
 
 
-MultipleProgramsLauncherApp().run()
+if __name__ == '__main__':
+    MultipleProgramsLauncherApp().run()
